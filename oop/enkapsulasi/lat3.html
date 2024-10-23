@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class RekeningBank {
+            #saldo;
+            static _daftarRekening = new Set();
+
+            constructor(nomorRekening, saldo = 0) {
+                this.nomorRekening = nomorRekening; 
+                this.#saldo = saldo; 
+            }
+
+            set nomorRekening(value) {
+                if (RekeningBank._daftarRekening.has(value)) {
+                    throw new Error(`Nomor rekening ${value} sudah digunakan.`);
+                }
+                RekeningBank._daftarRekening.add(value);
+                this._nomorRekening = value;
+            }
+
+            get nomorRekening() {
+                return this._nomorRekening;
+            }
+
+            get saldo() {
+                return this.#saldo; 
+            }
+
+            setorUang(jumlah) {
+                this.#saldo += jumlah;
+                console.log(`Rekening ${this.nomorRekening}: Uang sebesar Rp${jumlah} disetor. Saldo sekarang: Rp${this.#saldo}.`);
+            }
+
+            tarikUang(jumlah) {
+                if (jumlah > this.#saldo) {
+                    console.log(`Rekening ${this.nomorRekening}: Gagal menarik uang. Saldo tidak cukup.`);
+                } else {
+                    this.#saldo -= jumlah;
+                    console.log(`Rekening ${this.nomorRekening}: Uang sebesar Rp${jumlah} ditarik. Saldo sekarang: Rp${this.#saldo}.`);
+                }
+            }
+        }
+
+        const rekening1 = new RekeningBank("001", 500000);
+        const rekening2 = new RekeningBank("002", 1000000);
+        const rekening3 = new RekeningBank("003", 200000);
+
+        rekening1.setorUang(200000);  
+        rekening1.tarikUang(100000);  
+        rekening2.setorUang(500000);   
+        rekening2.tarikUang(300000);   
+        rekening3.setorUang(100000);   
+        rekening3.tarikUang(250000);   
+
+        console.log(`Saldo akhir rekening 001: Rp${rekening1.saldo}`); 
+        console.log(`Saldo akhir rekening 002: Rp${rekening2.saldo}`);
+        console.log(`Saldo akhir rekening 003: Rp${rekening3.saldo}`);
+        console.info(rekening1);
+        console.info(rekening2);
+        console.info(rekening3);
+    </script>
+</body>
+</html>

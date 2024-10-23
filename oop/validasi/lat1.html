@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class person{
+            constructor (firstName, lastName, age){
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.age = age;
+            }
+
+            get name(){
+                return this.firstName;
+                return this.lastName = value;
+            }
+
+            set name(value){
+                if (value.length == 0){
+                    console.log("nama tidak boleh kosong");
+                } else{
+                    this.firstName = value;
+                    this.lastName = value;
+                }
+            }
+
+            set setAge(value){
+                if (value < 0){
+                    console.log("umur tidak boleh kurang dari nol")
+                } else{
+                    this.age = value;
+                }
+            }
+
+            get getAge(){
+                return this.age;
+            }
+        }
+        
+        const objek = new person("gracelyn");
+        console.log(objek.name);
+        const objek2 = new person("alycia");
+        console.log(objek2.name);
+        objek.setAge = 16;
+        console.log(objek.getAge)
+    </script>
+</body>
+</html>

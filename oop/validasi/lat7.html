@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Validasi 7</title>
+</head>
+<body>
+    <script>
+        // Class Product
+        class Product {
+            constructor(idProduk, name, price) {
+                this.idProduk = idProduk; // ID produk
+                this.name = name; // Memanggil setter untuk validasi
+                this.price = price; // Memanggil setter untuk validasi
+            }
+
+            // Getter dan Setter untuk name
+            get name() {
+                return this._name;
+            }
+
+            set name(namaBaru) {
+                if (typeof namaBaru !== 'string' || namaBaru.trim() === '') {
+                    throw new Error('Nama harus berupa string dan tidak boleh kosong.');
+                }
+                this._name = namaBaru;
+            }
+
+            // Getter dan Setter untuk price
+            get price() {
+                return this._price;
+            }
+
+            set price(hargaBaru) {
+                if (typeof hargaBaru !== 'number' || hargaBaru <= 0) {
+                    throw new Error('Harga harus berupa angka dan lebih dari 0.');
+                }
+                this._price = hargaBaru;
+            }
+
+            // Method untuk menghitung total harga berdasarkan kuantitas
+            hitungTotalHarga(kuantitas) {
+                return this.price * kuantitas;
+            }
+
+            // Method untuk menampilkan informasi produk
+            tampilkanNama() {
+                console.info(`Nama Produk: ${this.name}`);
+            }
+        }
+
+        // Subclass ElectronicProduct yang mewarisi kelas Product
+        class ElectronicProduct extends Product {
+            constructor(idProduk, name, price, masaGaransi) {
+                super(idProduk, name, price); // Memanggil constructor dari Product
+                this.masaGaransi = masaGaransi; // Masa garansi produk
+            }
+
+            // Override metode hitungTotalHarga untuk menyertakan masa garansi
+            hitungTotalHarga(kuantitas) {
+                const totalHarga = super.hitungTotalHarga(kuantitas);
+                console.info(`Masa Garansi: ${this.masaGaransi} tahun`);
+                return totalHarga;
+            }
+
+            // Method untuk menampilkan nama produk elektronik
+            tampilkanNama() {
+                super.tampilkanNama(); // Menampilkan nama produk
+                console.info(`Masa Garansi: ${this.masaGaransi} tahun`); // Menampilkan masa garansi
+            }
+        }
+
+        // Menggunakan try-catch untuk menangani error saat validasi
+        try {
+            // Membuat instance dari kelas ElectronicProduct
+            const laptop = new ElectronicProduct(101, 'Laptop Gaming', 15000000, 2);
+
+            // Menampilkan nama produk
+            laptop.tampilkanNama();
+
+            // Menghitung dan menampilkan total harga untuk 3 unit produk
+            const totalHarga = laptop.hitungTotalHarga(3);
+            console.info(`Total Harga untuk 3 unit: Rp${totalHarga}`);
+        } catch (error) {
+            console.error(error.message);
+        }
+
+        // Menggunakan try-catch untuk menguji validasi
+        try {
+            const produkInvalid = new Product(102, '', -5000); // Ini akan memicu error
+        } catch (error) {
+            console.error(error.message); // Menampilkan pesan error
+        }
+
+        try {
+            const produkInvalid2 = new Product(103, 'Produk A', 'seribu'); // Ini juga akan memicu error
+        } catch (error) {
+            console.error(error.message); // Menampilkan pesan error
+        }
+    </script>
+</body>
+</html>

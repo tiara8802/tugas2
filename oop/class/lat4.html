@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Bank {
+        constructor(namaBank) {
+            this.namaBank = namaBank;
+            this.kantorCabang = [];
+        }
+
+    tambahKantorCabang(namaCabang) {
+        this.kantorCabang.push(namaCabang);
+    }
+
+    hapusKantorCabang(namaCabang) {
+        this.kantorCabang = this.kantorCabang.filter(cabang => cabang !== namaCabang);
+    }
+
+    tampilkanKantorCabang() {
+        console.log(`Kantor cabang ${this.namaBank}:`);
+        this.kantorCabang.forEach(cabang => console.log(cabang));
+    }
+}
+
+    // Membuat instance dari class Bank
+    const bankSaya = new Bank("Bank ABC");
+
+    // Menambahkan kantor cabang
+    bankSaya.tambahKantorCabang("Cabang Jakarta");
+    bankSaya.tambahKantorCabang("Cabang Bandung");
+    bankSaya.tambahKantorCabang("Cabang Surabaya");
+
+    // Menampilkan semua kantor cabang
+    bankSaya.tampilkanKantorCabang();
+
+    // Menghapus salah satu kantor cabang
+    bankSaya.hapusKantorCabang("Cabang Bandung");
+
+    // Menampilkan semua kantor cabang setelah penghapusan
+    bankSaya.tampilkanKantorCabang();
+    console.info(bankSaya);
+
+    </script>
+</body>
+</html>

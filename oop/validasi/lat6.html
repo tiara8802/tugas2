@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal Validasi 6</title>
+</head>
+<body>
+    <script>
+        class Employee {
+            constructor(name, salary) {
+                this.name = name;
+                this.salary = salary;
+            }
+            get name() {
+                return this._name;
+            }
+
+            set name(namaBaru) {
+                if (typeof namaBaru !== 'string' || namaBaru.trim() === '') {
+                    throw new Error('Nama harus berupa string dan tidak boleh kosong.');
+                }
+                this._name = namaBaru;
+            }
+            get salary() {
+                return this._salary;
+            }
+
+            set salary(gajiBaru) {
+                if (typeof gajiBaru !== 'number' || gajiBaru <= 0) {
+                    throw new Error('Gaji harus berupa angka dan lebih dari 0.');
+                }
+                this._salary = gajiBaru;
+            }
+
+            hitungGajiTahunan() {
+                return this.salary * 12;
+            }
+
+            displayDetails() {
+                console.info(`Nama Pegawai: ${this.name}`);
+                console.info(`Gaji Bulanan: Rp${this.salary}`);
+            }
+        }
+
+        class Manager extends Employee {
+            #bonus; 
+
+            constructor(name, salary, departemen) {
+                super(name, salary);
+                this.departemen = departemen;
+                this.#bonus = 0.1;
+            }
+
+            
+            hitungGajiTahunan() {
+                const totalBonus = this.#bonus * this.salary * 12;
+                return super.hitungGajiTahunan() + totalBonus;
+            }
+
+          
+            displayDetails() {
+                super.displayDetails();
+                console.info(`Departemen: ${this.departemen}`);
+                console.info(`Bonus (10% dari gaji pokok): Rp${this.#bonus * this.salary * 12}`);
+            }
+        }
+
+        try {
+            const manager1 = new Manager("Lamira Yunna", 10000000, "Marketing");
+            const manager2 = new Manager("Silmi Faris", 15500000, "Marketing");
+
+            manager1.displayDetails();
+            console.info(`Gaji Tahunan: Rp${manager1.hitungGajiTahunan()}\n`);
+
+            console.log(''); 
+
+            manager2.displayDetails();
+            console.info(`Gaji Tahunan: Rp${manager2.hitungGajiTahunan()}`);
+            
+        } catch (error) {
+            console.error(error.message);
+        }
+    </script>
+</body>
+</html>

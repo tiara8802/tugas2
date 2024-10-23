@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function PersegiPanjang(panjang, lebar) {
+    this.panjang = panjang;
+    this.lebar = lebar;
+
+    // Method to calculate area
+    this.hitungLuas = function() {
+        return this.panjang * this.lebar;
+    };
+
+    // Method to calculate perimeter
+    this.hitungKeliling = function() {
+        return 2 * (this.panjang + this.lebar);
+    };
+}
+
+    // Create an instance of PersegiPanjang class
+    const persegiPanjang1 = new PersegiPanjang(8, 5);
+
+    // Calculate and display area and perimeter
+    console.log(`Luas: ${persegiPanjang1.hitungLuas()}`); 
+    console.log(`Keliling: ${persegiPanjang1.hitungKeliling()}`);
+    </script>
+</body>
+</html>
